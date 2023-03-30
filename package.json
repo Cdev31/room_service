@@ -11,7 +11,10 @@
     "migrations:generate": "sequelize-cli migration:generate --name",
     "migrations:run": "sequelize-cli db:migrate",
     "migrations:revert": "sequelize-cli db:migrate:undo",
-    "migrations:delete": "sequelize-cli db:migrate:all"
+    "migrations:delete": "sequelize-cli db:migrate:all",
+    "seeder:generate": "sequelize-cli seed:generate --name ",
+    "seeder:all": "sequelize-cli db:seed:all",
+    "seeder:revert": "sequelize-cli db:seed:undo"
   },
   "author": "'Grupo proyecto Room' <kalet.elsalvadorca@gmail.com>",
   "license": "MIT",

@@ -90,6 +90,13 @@ export class Users extends Model{
                 as: 'belogingCountryUser'
             }
         )
+        this.hasOne(
+            models.Rents,
+            {
+                as: 'rentUser',
+                foreignKey: 'userRent'
+            }
+        )
     }
 
     static config(sequelize: Sequelize){

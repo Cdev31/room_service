@@ -12,7 +12,7 @@ export const roomModel = {
         type: DataTypes.UUID,
         primaryKey: true,
         defaultValue: DataTypes.UUIDV4,
-        field: 'user_id'
+        field: 'room_id'
     },
     tittle: {
         type: DataTypes.STRING(35),
@@ -48,11 +48,7 @@ export const roomModel = {
     services: {
         type: DataTypes.ARRAY(DataTypes.STRING),
         allowNull: false,
-        field: 'service_room',
-        validate: {
-            len:[6,6],
-            message:'at least 6 room services are needed'
-        }
+        field: 'service_room'
     },
     status: {
        type: DataTypes.ENUM('Reserved', 'Unreserved'),
@@ -82,7 +78,7 @@ export const roomModel = {
         onDelete: 'SET NULL',
     },
     category:{
-        type: DataTypes.UUID,
+        type: DataTypes.INTEGER,
         allowNull:false,
         field:'belonging_category',
         references: {
@@ -108,7 +104,7 @@ export const roomModel = {
 export class Rooms extends Model {
     static associate(models:any) {
       this.belongsTo(
-        models.User,
+        models.Users,
         {
           as: 'belonginUser',
         },
@@ -123,6 +119,13 @@ export class Rooms extends Model {
         models.Categories,
         {
             as: 'belogingCategory'
+        }
+    )
+    this.hasMany(
+        models.Rents,
+        {
+            as: 'roomsRents',
+            foreignKey: 'room'
         }
     )
     }
