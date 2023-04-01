@@ -24,11 +24,23 @@ export const UserModel = {
         unique: false,
         field: 'surname'
     },
+    fullName: {
+        type: DataTypes.VIRTUAL,
+        get(this: any){
+            return `${this.getDataValue('firstName')} ${this.getDataValue('surname')}`
+        }
+    },
     email:{
         type: DataTypes.STRING(80),
         allowNull: false,
         unique: true,
         field: 'user_email'
+    },
+    password: {
+        type: DataTypes.STRING,
+        allowNull:false,
+        unique: true,
+        field: 'password'
     },
     number: {
         type: DataTypes.STRING(20),
@@ -38,7 +50,7 @@ export const UserModel = {
     },
     profilePhoto:{
         type: DataTypes.STRING(80),
-        allowNull: false,
+        allowNull: true,
         unique: true,
         field: 'profile_photo'
     },
@@ -87,7 +99,8 @@ export class Users extends Model{
         this.belongsTo(
             models.Countries,
             {
-                as: 'belogingCountryUser'
+                as: 'belogingCountryUser',
+                foreignKey: 'country'
             }
         )
         this.hasOne(
@@ -97,6 +110,14 @@ export class Users extends Model{
                 foreignKey: 'userRent'
             }
         )
+        this.addScope('default',{
+            attributes: {
+                exclude: ['password','recoveryToken']
+            }
+        })
+        this.addScope('login',{
+            attributes: ['userId','recoveryToken']
+        })
     }
 
     static config(sequelize: Sequelize){
@@ -104,7 +125,7 @@ export class Users extends Model{
             sequelize,
             tableName: USER_TABLE,
             ModelName: 'Users',
-            timesTamps: false
+            timestamps: false
         }
     }
 }

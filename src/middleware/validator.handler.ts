@@ -13,7 +13,6 @@ export const validateSChema = (schema: any, property: params )=>{
           dateOfBirth: newDate
         }
       } 
-      console.log(data)
       const schemaClass = new schema()
       Object.assign(schemaClass,data)
       const erros: ValidationError[] = await validate(schemaClass)

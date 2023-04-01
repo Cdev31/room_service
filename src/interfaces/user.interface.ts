@@ -1,25 +1,41 @@
 export interface responseUserType<T> {
     status: number
     message: string
-    response: T
+    response?: T
 }
 
-export interface responseErrorType{
-   status: number
-   error: string
+
+export type UserAtributtes= {
+    userId?: string
+    firstName: string
+    surname: string
+    email: string
+    password: string
+    number: number
+    profilePhoto?: string
+    description: string
+    country: number
+    role: string
+    recoveryToken?: string
 }
+
+export interface changeUser extends Omit<UserAtributtes,'email' | 'password' | 'role' >{}
 
 export interface userInterface{
 
-    findUsers(): responseUserType<any> | responseErrorType
+    findUsers(query: {}): Promise<responseUserType<UserAtributtes[]>> 
 
-    findByPKUser(id:number): responseUserType<any> | responseErrorType
+    findByPKUser(id:string): Promise<responseUserType<UserAtributtes> >
 
-    createUser(body:string): responseUserType<any> | responseErrorType
+    registerUser(body:UserAtributtes): Promise<responseUserType<UserAtributtes>>
 
-    updateUser(id:number,changes:string): responseUserType<any> | responseErrorType
+    loginUser(email: string,password: string): Promise<responseUserType<Pick<UserAtributtes,'recoveryToken'>>> 
 
-    deleteUser(id:number): responseUserType<any> | responseErrorType
+    updateUser(id:number,changes:changeUser): Promise<responseUserType<UserAtributtes>> 
+
+    changePassword(id:number,password: string): Promise<responseUserType<true | string> >
+
+    deleteUser(id:string):  Promise<responseUserType<boolean>> 
     
 }
 

@@ -66,7 +66,7 @@ export const roomModel = {
         allowNull:false,
         field:'finish_date'
     },
-    belongingUser:{
+    user:{
         type: DataTypes.UUID,
         allowNull:false,
         field:'belonging_user',
