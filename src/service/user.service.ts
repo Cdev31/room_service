@@ -1,25 +1,22 @@
 import {} from 'sequelize'
 //internal imports
-import {changeUser,responseUserType,UserAtributtes,userInterface} from './../interfaces/user.interface'
+import {changeUser,Query,UserAtributtes,userInterface} from './../interfaces/user.interface'
 import {Users} from '../db/models/user.model'
+import {createHash,validateHash} from '../utils/validator/encryp.hash'
+import {createToken} from '../utils/validator/generate.token'
 
-interface Query {
-    limit?:number
-    offset?: number
-    where: {
-        role?: string
-    }
-}
+
+
 
 class User implements userInterface{
 
-    async findUsers(query:any): Promise<any> {
+    async findUsers(query:Query){
        
-        const options: Query= {
+        const options: {limit?:number,offset?:number,where:{role?:string}}= {
             where: {}
         }
 
-        const {limit,offset,role} = query
+        const {limit,offset,role}:Query = query
 
         if(limit && offset){
             options.limit = limit
@@ -38,7 +35,7 @@ class User implements userInterface{
         }   
     }
 
-    async findByPKUser(id: string): Promise<any>{
+    async findByPKUser(id: string){
             const response = await Users.scope('default').findByPk(id)
             
             return {
@@ -49,8 +46,14 @@ class User implements userInterface{
         
     }
 
-    async registerUser(body: UserAtributtes): Promise<any>{
-            const response = await Users.scope('default').create(body)
+    async registerUser(body: UserAtributtes){
+            const {password} = body
+            const response = await Users.scope('default').create(
+                {
+                    ...body,
+                    password: await createHash(password)
+                }
+            )
             return {
                 status: 201,
                 message: 'Success',
@@ -60,39 +63,49 @@ class User implements userInterface{
         
     }
 
-    async loginUser(email: string,password:string): Promise<any> {
-            const response = await Users.scope('login').findOne({
+    async loginUser(email: string,password:string) {
+            const user = await Users.scope('login').findOne({
                 where: {email: email}
             })
-            return {
-                status: 201,
-                message: 'Success',
-                response: response
+
+            let isPassword;
+            if (user){
+                const validate = await validateHash(password,user.dataValues.password)
+                await this.updateUser(user.dataValues.userId,{recoveryToken: createToken(user)})
+                isPassword = validate
+            }
+
+            if(isPassword == true){
+                return {
+                    status: 200,
+                    message: 'Success',
+                    response: user?.dataValues.recoveryToken
+                }
+            }else {
+                return {
+                    status: 400,
+                    message: 'Invalid password'
+                }
             }
     }
     
-    async updateUser(id: number, changes:changeUser ): Promise<any>  {
-        try {
-            const user = await Users.scope('default').findByPk(id)
+    async updateUser(id: number, changes:changeUser ){
+        const user = await Users.scope('default').findByPk(id)
             if(user === null){
                 return {
-                    statud: 404,
+                    status: 404,
                     message: 'Not Found'
                 }
             }
-            const response = await user.update(changes)
+        const response = await user.update(changes)
                 return {
                     status: 200,
                     message: 'Success',
                     response: response
                 }
-        } catch (error) {
-            return error
-        }   
     }
 
-    async changePassword(id:number,password: string): Promise<any>{
-        try {
+    async changePassword(id:number,password: string){
             const user = await Users.findByPk(id)
             if (user === null){
                 return {
@@ -106,25 +119,24 @@ class User implements userInterface{
             return {
                 status: 201,
                 message: 'Success',
-                response: response
-            }
-        } catch (error) {
-            return error   
-        }
+                response: true
+           }   
     }
 
-    async deleteUser(id: string): Promise<any> {
-        try {
-            const user = await this.findByPKUser(id)
-            const response = await Users.destroy(user.response)
-            return {
-                status: 201,
-                message: 'Success',
-                response: response
+    async deleteUser(id: string){
+        const user = await this.findByPKUser(id)
+            if(typeof(user) != 'undefined' && user != null){
+                const response = await Users.destroy({where: user.response?.dataValues.userId})
+                return {
+                    status: 201,
+                    message: 'Success',
+                    response: response
+                }
             }
-        } catch (error) {
-             return error
-        }
+        return {
+                status: 404,
+                message: 'Not found',
+            }
     }
 }
 

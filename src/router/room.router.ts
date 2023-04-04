@@ -1,8 +1,22 @@
-import {Router,Request,Response} from 'express'
+import {Router,Request,Response, NextFunction} from 'express'
+import { validateSChema } from '../middleware/validator.handler';
+import { createRoomSchema, findByPkRoomSchema, queryFindRoomSchema, updateRoomByPkSchema } from '../schemas/room.schema';
 
 export const roomRouter = Router()
 
-roomRouter.get('/',async(_,res:Response)=>{
+roomRouter.get('/',
+validateSChema(queryFindRoomSchema,'query'),
+async(req:Request,res:Response,next: NextFunction)=>{
+    try {
+        
+    } catch (error) {
+        next(error)
+    }
+});
+
+roomRouter.get('/:id',
+validateSChema(findByPkRoomSchema,'params'),
+async(req:Request,res:Response)=>{
     try {
         
     } catch (error) {
@@ -10,7 +24,9 @@ roomRouter.get('/',async(_,res:Response)=>{
     }
 });
 
-roomRouter.get('/:id',async(req:Request,res:Response)=>{
+roomRouter.post('/',
+validateSChema(createRoomSchema,'body'),
+async(req:Request,res:Response)=>{
     try {
         
     } catch (error) {
@@ -18,7 +34,10 @@ roomRouter.get('/:id',async(req:Request,res:Response)=>{
     }
 });
 
-roomRouter.post('/',async(req:Request,res:Response)=>{
+roomRouter.patch('/',
+validateSChema(findByPkRoomSchema,'params'),
+validateSChema(updateRoomByPkSchema,'body'),
+async(req:Request,res:Response)=>{
     try {
         
     } catch (error) {
@@ -26,15 +45,9 @@ roomRouter.post('/',async(req:Request,res:Response)=>{
     }
 });
 
-roomRouter.patch('/',async(req:Request,res:Response)=>{
-    try {
-        
-    } catch (error) {
-        
-    }
-});
-
-roomRouter.delete('/',async(req:Request,res:Response)=>{
+roomRouter.delete('/',
+validateSChema(findByPkRoomSchema,'params'),
+async(req:Request,res:Response)=>{
     try {
         
     } catch (error) {

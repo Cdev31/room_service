@@ -1,6 +1,6 @@
-import {IsString,IsDate, Length, IsUrl, IsNumber,ValidateNested,IsNotEmpty,IsEmpty} from 'class-validator'
+import {IsString,IsDate, Length, IsUrl,IsIn,IsNumber,ValidateNested,IsNotEmpty,IsEmpty} from 'class-validator'
 
-type status = 'Rented' | 'Not rented'
+type status = 'Rented' | 'Not Rented'
 
 class photosRoom{
     @IsUrl()
@@ -44,7 +44,13 @@ export class createRoomSchema{
 
     @IsNumber()
     @IsNotEmpty()
+    readonly user: number
+
+    @IsNumber()
+    @IsNotEmpty()
     readonly price: number
+
+    @IsIn(['Rented', 'Not Rented'])
     readonly status: status
 }
 
@@ -79,7 +85,7 @@ export class updateRoomByPkSchema{
 
 export class queryFindRoomSchema{
     readonly limit?: number
-    readonly offser?: number
+    readonly offset?: number
     readonly min_price?: number
     readonly max_price?: number 
 }

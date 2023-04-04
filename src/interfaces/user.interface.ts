@@ -1,8 +1,5 @@
-export interface responseUserType<T> {
-    status: number
-    message: string
-    response?: T
-}
+import { Users } from "../db/models/user.model"
+import {responseType} from './response'
 
 
 export type UserAtributtes= {
@@ -19,23 +16,31 @@ export type UserAtributtes= {
     recoveryToken?: string
 }
 
-export interface changeUser extends Omit<UserAtributtes,'email' | 'password' | 'role' >{}
+export interface Query {
+    limit?:number
+    offset?: number
+    role?: string
+}
+
+
+
+export interface changeUser extends Partial<Omit<UserAtributtes,'email' | 'password' | 'role' >>{}
 
 export interface userInterface{
 
-    findUsers(query: {}): Promise<responseUserType<UserAtributtes[]>> 
+    findUsers(query: Query): Promise<responseType<Users[]>> 
 
-    findByPKUser(id:string): Promise<responseUserType<UserAtributtes> >
+    findByPKUser(id:string): Promise<responseType<Users | null> >
 
-    registerUser(body:UserAtributtes): Promise<responseUserType<UserAtributtes>>
+    registerUser(body:UserAtributtes): Promise<responseType<Users>>
 
-    loginUser(email: string,password: string): Promise<responseUserType<Pick<UserAtributtes,'recoveryToken'>>> 
+    loginUser(email: string,password: string): Promise<responseType<Users>> 
 
-    updateUser(id:number,changes:changeUser): Promise<responseUserType<UserAtributtes>> 
+    updateUser(id:number,changes:changeUser): Promise<responseType<Users>> 
 
-    changePassword(id:number,password: string): Promise<responseUserType<true | string> >
+    changePassword(id:number,password: string): Promise<responseType<boolean> >
 
-    deleteUser(id:string):  Promise<responseUserType<boolean>> 
+    deleteUser(id:string):  Promise<responseType<number>>  
     
 }
 

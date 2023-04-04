@@ -116,7 +116,7 @@ export class Users extends Model{
             }
         })
         this.addScope('login',{
-            attributes: ['userId','recoveryToken']
+            attributes: ['userId','recoveryToken','password']
         })
     }
 

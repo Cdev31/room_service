@@ -68,8 +68,8 @@ async(req:Request,res:Response,next:NextFunction)=>{
     try {
         const id = parseInt(req.params.id)
         const changes = req.body
-        const response = await userService.updateUser(id,changes);
-        res.status(response.status).json(response.response)
+        const {message,response,status} = await userService.updateUser(id,changes);
+        res.status(status).json(response)
     } catch (error) {
         next(error)
     }
@@ -93,8 +93,8 @@ userRouter.delete('/:id',
 validateSChema(findOneUserSchema,'params'),
 async(req:Request,res:Response)=>{
     try {
-        const response = await userService.deleteUser(req.params.id)
-        res.status(response.status).json(response.response)
+        const {status,response,message} = await userService.deleteUser(req.params.id)
+        res.status(status).json(response)
     } catch (error) {
         res.status(500).json({
             message: error
