@@ -36,9 +36,9 @@ export interface userInterface{
 
     loginUser(email: string,password: string): Promise<responseType<Users>> 
 
-    updateUser(id:number,changes:changeUser): Promise<responseType<Users>> 
+    updateUser(id:string,changes:changeUser): Promise<responseType<Users>> 
 
-    changePassword(id:number,password: string): Promise<responseType<boolean> >
+    changePassword(id:string,password: string): Promise<responseType<boolean> >
 
     deleteUser(id:string):  Promise<responseType<number>>  
     

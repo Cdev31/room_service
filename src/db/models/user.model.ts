@@ -93,7 +93,7 @@ export class Users extends Model{
             models.Rooms,
             {
                 as: 'userRooms',
-                foreignKey: 'belongingUser'
+                foreignKey: 'user'
             }
         )
         this.belongsTo(
@@ -116,7 +116,7 @@ export class Users extends Model{
             }
         })
         this.addScope('login',{
-            attributes: ['userId','recoveryToken','password']
+            attributes: ['userId','recoveryToken','password','role','country']
         })
     }
 

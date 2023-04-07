@@ -41,13 +41,15 @@ export class Rents extends Model{
     static associate(models:any){
         this.belongsTo(
             models.Users,{
-                as: 'userRents'
+                as: 'userRents',
+                foreignKey: 'userRent'
             }
         )
         this.belongsTo(
             models.Rooms,
             {
-                as: 'roomsRented'
+                as: 'roomsRented',
+                foreignKey: 'room'
             }
         )
     }

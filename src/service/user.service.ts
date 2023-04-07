@@ -71,6 +71,7 @@ class User implements userInterface{
             let isPassword;
             if (user){
                 const validate = await validateHash(password,user.dataValues.password)
+
                 await this.updateUser(user.dataValues.userId,{recoveryToken: createToken(user)})
                 isPassword = validate
             }
@@ -89,7 +90,7 @@ class User implements userInterface{
             }
     }
     
-    async updateUser(id: number, changes:changeUser ){
+    async updateUser(id: string, changes:changeUser ){
         const user = await Users.scope('default').findByPk(id)
             if(user === null){
                 return {
@@ -105,7 +106,19 @@ class User implements userInterface{
                 }
     }
 
-    async changePassword(id:number,password: string){
+    async addPhoto(id:string,image:any){
+        const user = await this.findByPKUser(id)
+        const response= user.response?.update({
+            profilePhoto: `http://localhost:3000/public/imgUser/${image.file.filename}`
+        })
+        return {
+            status:200,
+            message:'updated',
+            response: response
+        }
+    }
+
+    async changePassword(id:string,password: string){
             const user = await Users.findByPk(id)
             if (user === null){
                 return {
@@ -113,9 +126,8 @@ class User implements userInterface{
                     message: 'Not Found'
                 }
             }
-            const response = user.update({
-                password: password
-            })
+            user.update({password: password})
+            
             return {
                 status: 201,
                 message: 'Success',

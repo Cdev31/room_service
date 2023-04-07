@@ -1,22 +1,24 @@
-import {IsString,IsDate, Length, IsUrl,IsIn,IsNumber,ValidateNested,IsNotEmpty,IsEmpty} from 'class-validator'
+import 'reflect-metadata';
+import {IsString,IsDate, Length, IsUrl,IsIn,IsNumber,ValidateNested,IsNotEmpty, IsOptional} from 'class-validator'
+import {Type} from 'class-transformer'
 
 type status = 'Rented' | 'Not Rented'
 
 class photosRoom{
-    @IsUrl()
-    readonly photo1: string
+    @Type(()=>Object)
+    readonly photo1: Express.Multer.File
 
-    @IsUrl()
-    readonly photo2: string
+    @Type(()=>Object)
+    readonly photo2: Express.Multer.File
 
-    @IsUrl()
-    readonly photo3: string
+    @Type(()=>Object)
+    readonly photo3: Express.Multer.File
 }
 
 export class findByPkRoomSchema{
-    @IsNumber()
+    @IsString()
     @IsNotEmpty()
-    id: number
+    id: string
 }
 
 export class createRoomSchema{
@@ -30,56 +32,55 @@ export class createRoomSchema{
     @Length(70,100)
     readonly description:string
 
-    @IsDate()
+    
     @IsNotEmpty()
-    readonly startDate: Date
+    readonly starDate: string
 
-    @IsDate()
+    
     @IsNotEmpty()
-    readonly finishDate: Date
+    readonly finishDate: string
 
-    @ValidateNested()
-    @IsNotEmpty()
+  
+    @Type(()=>photosRoom)
     readonly photos: photosRoom
 
-    @IsNumber()
-    @IsNotEmpty()
-    readonly user: number
 
-    @IsNumber()
+    @IsString()
     @IsNotEmpty()
-    readonly price: number
+    readonly price: string
 
-    @IsIn(['Rented', 'Not Rented'])
+    @IsIn(['Reserved', 'Unreserved'])
     readonly status: status
 }
 
 export class updateRoomByPkSchema{
     @IsString()
-    @IsEmpty()
+    @IsOptional()
     @Length(10,25)
     readonly tittle?: string
 
     @IsString()
-    @IsEmpty()
+    @IsOptional()
     @Length(70,100)
     readonly description?:string
 
     @IsDate()
-    @IsEmpty()
+    @IsOptional()
     readonly startDate?: Date
 
     @IsDate()
-    @IsEmpty()
+    @IsOptional()
     readonly finishDate?: Date
 
     @ValidateNested()
-    @IsEmpty()
+    @IsOptional()
     readonly photos?: photosRoom
 
     @IsNumber()
-    @IsEmpty()
+    @IsOptional()
     readonly price?: number
+    @IsOptional()
+    @IsIn(['Reserved','Unreserved'])
     readonly status?: status
 }
 

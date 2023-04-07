@@ -1,12 +1,12 @@
 import {IsString,Length,IsNumberString,IsEmail,IsNumber,
-       IsDate,IsUrl,IsOptional, IsIn,Min, IsNotEmpty, IsPositive, IsPhoneNumber} from 'class-validator'
+       IsDate,IsUrl,IsOptional, IsIn, IsNotEmpty, IsPositive, IsPhoneNumber, IsMimeType} from 'class-validator'
 
 
 //schema para buscar un solo usuario
 export class findOneUserSchema{
-    @IsNumber()
+    @IsString()
     @IsNotEmpty()
-    id: number
+    id: string
 }
 
 //schema para query params
@@ -60,12 +60,12 @@ export class createUserSchema{
 
     @IsNumber()
     @IsNotEmpty()
-    country: number
+    readonly country: number
     
     @IsString()
     @Length(70,150)
     @IsNotEmpty()
-    description: string
+    readonly description: string
 }
 
 //para login
@@ -118,4 +118,8 @@ export class changeUserPasswordSchema{
     @Length(8,12)
     @IsNotEmpty()
     readonly password: string
+}
+
+export class addPhotoProfile{
+ photo: string
 }

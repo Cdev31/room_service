@@ -1,12 +1,12 @@
 import {Request,Response,NextFunction} from 'express'
 import {validate,ValidationError} from 'class-validator'
 
-type params = 'body' | 'header' | 'query' | 'params'
+type params = 'body' | 'header' | 'query' | 'params' | 'file' | 'files'
 
 export const validateSChema = (schema: any, property: params )=>{
     return async (req:Request,res:Response,next:NextFunction)=>{
       let data = req[property]
-      if(data.dateOfBirth && data.dateOfBirth){
+      if(data.dateOfBirth){
         const newDate:Date = new Date(data.dateOfBirth)
         data = {
           ...data,

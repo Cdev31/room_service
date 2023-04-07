@@ -107,18 +107,21 @@ export class Rooms extends Model {
         models.Users,
         {
           as: 'belonginUser',
+          foreignKey: 'user'
         },
       )
       this.belongsTo(
         models.Countries,
         {
-            as: 'belogingCountryRoom'
+            as: 'belogingCountryRoom',
+            foreignKey: 'country'
         }
     )
     this.belongsTo(
         models.Categories,
         {
-            as: 'belogingCategory'
+            as: 'belogingCategory',
+            foreignKey: 'category'
         }
     )
     this.hasMany(
