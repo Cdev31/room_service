@@ -1,4 +1,5 @@
 import {Router,Request,Response,NextFunction} from 'express'
+import passport from 'passport'
 
 //internal imports
 import {validateSChema} from '../middleware/validator.handler'
@@ -6,7 +7,7 @@ import {userService} from '../service/user.service'
 import {uploadUser} from '../middleware/images.handler'
 import {createUserSchema,findQueryUserSchema,addPhotoProfile,
     findOneUserSchema,loginUserSchema,changeUserSchema,changeUserPasswordSchema} from './../schemas/user.schema'
-import passport from 'passport'
+import {authHandler} from '../middleware/authorization.handler'
 
 
 
@@ -68,6 +69,7 @@ async (req:Request,res:Response,next:NextFunction)=>{
 
 userRouter.patch('/:id',
 passport.authenticate('jwt',{session:false}),
+authHandler('Normal'),
 validateSChema(findOneUserSchema,'params'),
 validateSChema(changeUserSchema,'body'),
 async(req:Request,res:Response,next:NextFunction)=>{
@@ -82,6 +84,7 @@ async(req:Request,res:Response,next:NextFunction)=>{
 
 userRouter.put('/change_pass/:id',
 passport.authenticate('jwt',{session:false}),
+authHandler('Normal'),
 validateSChema(findOneUserSchema,'params'),
 validateSChema(changeUserPasswordSchema,'body'),
 async (req: Request,res:Response,next:NextFunction)=>{
@@ -97,6 +100,7 @@ async (req: Request,res:Response,next:NextFunction)=>{
 
 userRouter.patch('/add_photo/:id',
 passport.authenticate('jwt',{session:false}),
+authHandler('Normal'),
 validateSChema(findOneUserSchema,'params'),
 validateSChema(addPhotoProfile,'file'),
 uploadUser.single('photo'),
@@ -111,6 +115,7 @@ async (req: Request,res:Response,next:NextFunction)=>{
 
 userRouter.delete('/:id',
 passport.authenticate('jwt',{session:false}),
+authHandler('Administrator'),
 validateSChema(findOneUserSchema,'params'),
 async(req:Request,res:Response)=>{
     try {

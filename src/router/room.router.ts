@@ -5,6 +5,8 @@ import { validateSChema } from '../middleware/validator.handler';
 import { createRoomSchema, findByPkRoomSchema, queryFindRoomSchema, updateRoomByPkSchema } from '../schemas/room.schema';
 import {roomService} from '../service/room.service'
 import {uploadRoom,uploadImageRoom} from '../middleware/images.handler'
+import {authHandler} from '../middleware/authorization.handler'
+
 
 export const roomRouter = Router()
 
@@ -38,6 +40,7 @@ async(req:Request,res:Response,next: NextFunction)=>{
 
 roomRouter.post('/',
 passport.authenticate('jwt',{session:false}),
+authHandler('Host'),
 uploadRoom.array('photos'),
 validateSChema(createRoomSchema,'body'),
 uploadImageRoom(),
@@ -56,6 +59,7 @@ async(newRoom:any,_:Request,res:Response,next: NextFunction)=>{
 
 roomRouter.patch('/:id',
 passport.authenticate('jwt',{session:false}),
+authHandler('Host'),
 validateSChema(findByPkRoomSchema,'params'),
 validateSChema(updateRoomByPkSchema,'body'),
 async(req:Request,res:Response,next: NextFunction)=>{
@@ -72,6 +76,7 @@ async(req:Request,res:Response,next: NextFunction)=>{
 
 roomRouter.delete('/:id',
 passport.authenticate('jwt',{session:false}),
+authHandler('Host'),
 validateSChema(findByPkRoomSchema,'params'),
 async(req:Request,res:Response,next: NextFunction)=>{
     try {

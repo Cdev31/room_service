@@ -1,46 +1,31 @@
-import {Router,Request,Response} from 'express'
+import {Router,Request,Response, NextFunction} from 'express'
 
 import {categoryServie} from '../service/category.service'
 
 export const categoryRouter = Router()
 
-categoryRouter.get('/',async(_,res:Response)=>{
+categoryRouter.get('/',
+async(_,res:Response,next:NextFunction)=>{
     try {
-        const ress = await categoryServie.findCategory()
-        res.status(200).json(ress)
+        const {status,message,response} = await categoryServie.findCategory()
+        res.status(status).json({
+            message: message,
+            response: response
+        })
     } catch (error) {
-        
+        next(error)
     }
 });
 
-categoryRouter.get('/:id',async(req:Request,res:Response)=>{
+categoryRouter.get('/:id',
+async(req:Request,res:Response,next:NextFunction)=>{
     try {
-        
+        const {status,message,response} = await categoryServie.findByPkCategory(parseInt(req.params.id))
+        res.status(status).json({
+            message: message,
+            response: response
+        })
     } catch (error) {
-        
-    }
-});
-
-categoryRouter.post('/',async(req:Request,res:Response)=>{
-    try {
-        
-    } catch (error) {
-        
-    }
-});
-
-categoryRouter.patch('/',async(req:Request,res:Response)=>{
-    try {
-        
-    } catch (error) {
-        
-    }
-});
-
-categoryRouter.delete('/',async(req:Request,res:Response)=>{
-    try {
-        
-    } catch (error) {
-        
+        next(error)
     }
 });

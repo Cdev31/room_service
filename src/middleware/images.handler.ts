@@ -3,8 +3,7 @@ import multer, {StorageEngine } from "multer"
 import {Request,Response,NextFunction} from 'express'
 import {validateToken} from '../utils/validator/generate.token'
 import { JwtPayload } from "jsonwebtoken"
-import {validate} from 'class-validator'
-import {createRoomSchema} from '../schemas/room.schema'
+
 
 const storageUser: StorageEngine = multer.diskStorage({
     destination: async (req:Request,file,cb)=>{

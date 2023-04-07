@@ -2,7 +2,7 @@ import { QueryInterface } from 'sequelize';
 //internal imports
 import {CATEGORY_TABLE} from '../models/category.model'
 import {COUNTRY_TABLE} from '../models//country.model'
-
+import {USER_TABLE} from '../models/user.model'
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
@@ -39,7 +39,7 @@ module.exports = {
      {
         country_name: 'Argentina'
      }
-    ])
+    ]);
   },
 
   async down (queryInterface:QueryInterface) {
