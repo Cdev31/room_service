@@ -4,25 +4,28 @@
   "description": "'backend para el proyecto Room'",
   "main": "src/index.js",
   "scripts": {
-    "dev": "nodemon src/index.js",
-    "start": "node src/index.js ",
+    "dev": "nodemon src/index.ts",
+    "start": "node dist/index.js ",
+    "build": "tsc",
     "lint": "eslint",
     "migrations:generate": "sequelize-cli migration:generate --name",
     "migrations:run": "sequelize-cli db:migrate",
     "migrations:revert": "sequelize-cli db:migrate:undo",
-    "migrations:delete": "sequelize-cli db:migrate:all"
+    "migrations:delete": "sequelize-cli db:migrate:all",
+    "seeder:generate": "sequelize-cli seed:generate --name ",
+    "seeder:all": "sequelize-cli db:seed:all",
+    "seeder:revert": "sequelize-cli db:seed:undo"
   },
   "author": "'Grupo proyecto Room' <kalet.elsalvadorca@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "@hapi/boom": "^10.0.0",
     "bcrypt": "^5.0.1",
+    "class": "^0.1.4",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.14.0",
     "cors": "^2.8.5",
-    "dotenv": "^16.0.2",
-    "ejs": "^3.1.8",
     "express": "^4.18.1",
-    "joi": "^17.4.2",
-    "jsonwebtoken": "^8.5.1",
+    "jsonwebtoken": "^9.0.0",
     "multer": "^1.4.5-lts.1",
     "nodemailer": "^6.7.8",
     "passport": "^0.6.0",
@@ -30,18 +33,33 @@
     "passport-local": "^1.0.0",
     "pg": "^8.8.0",
     "pg-hstore": "^2.3.4",
+    "reflect-metadata": "^0.1.13",
     "sequelize": "^6.22.0",
-    "sequelize-cli": "^6.4.1"
+    "sequelize-cli": "^6.4.1",
+    "transformer": "^1.2.8"
   },
   "devDependencies": {
-    "body-parse": "^0.1.0",
+    "@types/bcrypt": "^5.0.0",
+    "@types/cors": "^2.8.13",
+    "@types/dotenv": "^8.2.0",
+    "@types/express": "^4.17.17",
+    "@types/jsonwebtoken": "^9.0.1",
+    "@types/multer": "^1.4.7",
+    "@types/nodemailer": "^6.4.7",
+    "@types/passport": "^1.0.12",
+    "@types/passport-jwt": "^3.0.8",
+    "@types/pg": "^8.6.6",
+    "@types/sequelize": "^4.28.14",
+    "dotenv": "^16.0.2",
     "eslint": "^8.24.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^4.2.1",
     "nodemon": "^2.0.19",
-    "prettier": "^2.3.2"
+    "prettier": "^2.3.2",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.0.2"
   },
   "engines": {
-    "node": "16.x"
+    "node": "18.x"
   }
 }
