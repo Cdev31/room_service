@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  db: 
+   image: mongo:5
+   restart: always
+   container_name: roomDB
+   ports: 
+    - 27017:27017
+   volumes: 
+    - ./data:/data/db  
+   environment:
+    MONGO_USER: 'admin'
+    MONGO_PASSWORD: 'admin_123'
