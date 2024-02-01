@@ -17,13 +17,13 @@ interface IUserPrivateInformation {
 }
 
 export interface IUser {
-    firstName: string
-    lastName: string
+    firstName?: string
+    lastName?: string
     displayName: string
     email: string
     phone: string
     gender: Gender
-    password: string
+    password?: string
     google: boolean
     userType: UserType
     photo: string

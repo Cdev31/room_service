@@ -42,7 +42,8 @@ export const userSchema = new Schema<IUser>({
     },
     userType: {
         type: String,
-        enum: Object.values(UserType)
+        enum: Object.values(UserType),
+        default: UserType.Normal
     },
     photo: {
         type: String,

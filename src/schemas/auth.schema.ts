@@ -1,4 +1,5 @@
 import { IsDate, IsEmail, IsIn, IsNotEmpty, IsPhoneNumber, IsString, Length, Matches, MinLength, ValidateNested } from 'class-validator'
+import { Gender } from '../db/models/users'
 
 
 class UserInformationSchema {
@@ -46,7 +47,7 @@ export class RegisterUserSchema {
     @IsString()
     @IsIn(['Masculino', 'Femenino', 'Otro'])
     @IsNotEmpty()
-    gender: string
+    gender: Gender
 
     @IsString()
     @IsNotEmpty()

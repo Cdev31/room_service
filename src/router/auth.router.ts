@@ -23,8 +23,12 @@ validateData('body', RegisterUserSchema),
 async ( req: Request , res: Response, next: NextFunction )=>{
     try {
 
-        const response = await authServices.register( req.body )
-        res.status(201).json(response)
+        const { status, response, message, error } = await authServices.register( req.body )
+        res.status(status).json({
+            response: response,
+            message: message,
+            error: error
+        })
         
     } catch (error) {
         next( error )
