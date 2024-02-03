@@ -8,12 +8,12 @@ export const roomSchema = new Schema<IRoom>({
     title: {
         type: String,
         required: true,
-        minlength: 100
+        minlength: 60
     },
     description: {
         type: String,
         required: true,
-        minlength: 250
+        minlength: 130
     },
     reserved: {
         type: Boolean,

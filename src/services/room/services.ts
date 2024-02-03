@@ -1,4 +1,5 @@
 
+import { CreateRoomSchema } from '../../schemas/room.schema'
 import { IRoomServices }  from './interface'
 
 
@@ -12,7 +13,7 @@ export class RoomServices{
         return await this.adapter.findByHost( id )
     }
 
-    async find( term: string){
+    async find( term?: string ){
         return await this.adapter.find( term )
     }
 
@@ -20,7 +21,7 @@ export class RoomServices{
         return await this.adapter.update( changes, id )
     }
 
-    async create( room: object ){
+    async create( room: CreateRoomSchema ){
         return this.adapter.create( room )
     }
 
