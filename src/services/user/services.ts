@@ -7,8 +7,8 @@ export class UserServices {
         private readonly Adapter: IUserServices
      ){}
 
-    async findByEmail(){
-        return this.Adapter.findByEmail()
+    async findByEmail( email: string ){
+        return await this.Adapter.findByEmail( email )
     }
     
     async find(){

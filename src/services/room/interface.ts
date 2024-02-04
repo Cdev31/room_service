@@ -12,7 +12,7 @@ export interface IRoomServices {
 
     create( room: CreateRoomSchema ): Promise<response>
 
-    findByHost( id:string ): void
+    findByHost( id:string ): Promise<response>
 
     find( term?: string): Promise<response>
 

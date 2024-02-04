@@ -10,8 +10,8 @@ export class AuthServices {
         private readonly Adapter: IAuthServices
     ){}
 
-    async login(){
-        return this.Adapter.login()
+    async login( user: any ){
+        return this.Adapter.login( user )
     }
 
     async register( user: RegisterUserSchema ){

@@ -59,3 +59,15 @@ export class RegisterUserSchema {
     privateInformation: UserInformationSchema
 }
 
+
+export class LoginUserSchema {
+
+    @IsEmail()
+    @IsNotEmpty()
+    email: string
+
+    @IsString()
+    @IsNotEmpty()
+    @MinLength(8)
+    password: string
+}

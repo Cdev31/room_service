@@ -28,8 +28,22 @@ export class UserAdapter implements IUserServices {
         }
     }
     
-    findByEmail(): void {
-        throw new Error("Method not implemented.");
+    async findByEmail( email: string ) {
+        const user = await Model.userModel.findOne({ 
+            email: email
+        })
+        if( user === null ) return { 
+            response: [],
+            status: 404,
+            error: 'User not found',
+            message: null
+        }
+        return {
+            response: user,
+            status: 200,
+            error: null,
+            message: 'Success'
+        }
     }
 
     async find() {

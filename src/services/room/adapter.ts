@@ -33,8 +33,23 @@ export class RoomAdapter implements IRoomServices {
     }
     }
     
-    findByHost(id: string): void {
-        throw new Error("Method not implemented.");
+    async findByHost( id: string ) {
+       
+        const rooms = await Model.roomModel.find({
+            host: id
+        })
+        if( rooms === null ) return {
+            response: [],
+            error: 'rooms not founds',
+            message: null,
+            status: 404
+        }
+        return {
+            response: rooms,
+            error: null,
+            message: 'Success',
+            status: 200
+        }
     }
 
     async find( term: string ) {

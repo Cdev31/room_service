@@ -10,7 +10,7 @@ export type response = {
 
 export interface IAuthServices {
 
-    login(): void;
+    login( user: any ): string;
 
     register( user: Omit<IUser, 'google' | 'emailVerify'| 'photo'| 'userType'> ): Promise<response>;
 
