@@ -7,14 +7,18 @@ import { createJwt } from "../../utils/generate.jwt";
 
 export class AuthAdapter implements IAuthServices {
 
-    login( user: any )  {
+    login( { response }: any )  {
         const payload = {
-            userId: user.id,
-            email: user.email
+            userId: response._id,
+            email: response.email
            }
            const token = createJwt(payload, config.jwtSecret)
     
-           return token
+           return {
+             userId: response._id,
+             email: response.email,
+             token: token,
+           }
     }
 
     async register( user: Omit<IUser, 'google' | 'emailVerify'| 'photo' | 'userType'> ): Promise<response> {

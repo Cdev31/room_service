@@ -15,7 +15,8 @@ validateData('body', LoginUserSchema),
 passport.authenticate('local', { session: false }),
 async ( req: Request , res: Response, next: NextFunction )=>{
     try {
-        const response = await authServices.login( req.user )
+        const user: any = req.user
+        const response = await authServices.login( user )
         res.status(200).json(response)
     } catch (error) {
         next(error)
