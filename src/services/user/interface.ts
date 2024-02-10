@@ -9,6 +9,8 @@ export type response = {
 
 export interface IUserServices {
 
+    findById( id: string ): Promise<response>
+
     findByEmail( email: string ): Promise<response>;
 
     changeTypeHost( id: string ): Promise<response> ;

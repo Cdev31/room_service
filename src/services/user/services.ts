@@ -15,6 +15,10 @@ export class UserServices {
         return await this.Adapter.find()
     }
 
+    async findById( id: string ){
+        return await this.Adapter.findById( id )
+    }
+
     async changeTypeHost( id: string ){
         return this.Adapter.changeTypeHost( id )
     }

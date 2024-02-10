@@ -23,6 +23,7 @@ export class AuthServices {
             email: user.email,
             password: hashPasword( user.password ),
             gender: user.gender,
+            biografy: user.biografy,
             phone: user.phone,
             privateInformation: user.privateInformation
         }

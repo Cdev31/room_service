@@ -1,8 +1,28 @@
-import { IUserServices } from "./interface";
+import { IUserServices, response } from "./interface";
 import { Model } from '../../db/libs/connecion'
 
 
 export class UserAdapter implements IUserServices {
+
+
+    async findById( id: string ) {
+        const user = await Model.userModel.findById( id )
+        
+        if ( user === null )
+        return {
+           status: 404,
+           response: [],
+           message: null,
+           error: 'User not Found'
+        }
+
+        return {
+            status: 200,
+            response: user,
+            message: 'Success',
+            error: null
+         }
+    }
 
     async changeTypeHost( id: string ) {
 

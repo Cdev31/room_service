@@ -49,6 +49,11 @@ export const userSchema = new Schema<IUser>({
         type: String,
         required: false
     },
+    biografy: {
+        type: String,
+        minlength: 150,
+        required: true
+    },
     emailVerify: {
         type: Boolean,
         required: true,
@@ -62,6 +67,11 @@ export const userSchema = new Schema<IUser>({
         personalPhone: {
             type: String,
             required: true,
+        },
+        address: {
+            type: String,
+            minlength: 50,
+            required: true
         },
         dateOfBirth: {
             type: Date,

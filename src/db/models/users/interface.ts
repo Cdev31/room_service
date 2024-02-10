@@ -13,6 +13,7 @@ export enum UserType {
 interface IUserPrivateInformation {
     dui: string
     personalPhone: string
+    address: string
     dateOfBirth: Date
 }
 
@@ -26,6 +27,7 @@ export interface IUser {
     password?: string
     google: boolean
     userType: UserType
+    biografy: string
     photo: string
     emailVerify: boolean
     privateInformation: IUserPrivateInformation

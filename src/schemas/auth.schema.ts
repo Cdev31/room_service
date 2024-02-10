@@ -1,4 +1,5 @@
-import { IsDate, IsEmail, IsIn, IsNotEmpty, IsPhoneNumber, IsString, Length, Matches, MinLength, ValidateNested } from 'class-validator'
+import { IsDate, IsEmail, IsIn, IsNotEmpty, IsPhoneNumber, IsString, Length, Matches,
+         MinLength, ValidateNested } from 'class-validator'
 import { Gender } from '../db/models/users'
 
 
@@ -12,6 +13,11 @@ class UserInformationSchema {
     @IsPhoneNumber('SV')
     @IsNotEmpty()
     personalPhone: string
+
+    @IsString()
+    @IsNotEmpty()
+    @MinLength(50)
+    address: string
 
     @IsDate()
     @IsNotEmpty()
@@ -53,6 +59,12 @@ export class RegisterUserSchema {
     @IsNotEmpty()
     @MinLength(8)
     password: string
+
+    @IsString()
+    @IsNotEmpty()
+    @MinLength(150)
+    biografy: string
+
 
     @ValidateNested()
     @IsNotEmpty()
