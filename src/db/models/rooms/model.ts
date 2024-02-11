@@ -41,6 +41,10 @@ export const roomSchema = new Schema<IRoom>({
         required: true,
         ref: 'Users'
     },
+    price: {
+        type: Number,
+        required: true
+    },
     maxDays: {
         type: Number,
         max: 20,

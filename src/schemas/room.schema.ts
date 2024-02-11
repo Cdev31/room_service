@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsNumber, IsString, Matches, Max, Min, MinLength, ValidateNested } from "class-validator"
+import { IsNotEmpty, IsNumber, IsPositive, IsString, Matches, Max, Min, MinLength, ValidateNested } from "class-validator"
 
 
 class ImageRoom {
@@ -52,6 +52,11 @@ export class CreateRoomSchema {
     @Min(1)
     @Max(20)
     maxDays: number
+
+    @IsNumber()
+    @IsNotEmpty()
+    @IsPositive()
+    price: number
 
     @ValidateNested()
     @IsNotEmpty()

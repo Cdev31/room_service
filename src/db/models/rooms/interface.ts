@@ -14,6 +14,7 @@ export interface IRoom {
     address: string
     department: string
     city: string
+    price: number
     postalCode: string
     host: string
     maxDays: number
