@@ -1,5 +1,5 @@
 import { IAuthServices, response } from "./interface";
-import { Model } from '../../db/libs/connecion'
+import { Model } from '../../db/libs/connection'
 import { IUser } from "../../db/models/users";
 import { config } from "../../config/config.env";
 import { createJwt } from "../../utils/generate.jwt";

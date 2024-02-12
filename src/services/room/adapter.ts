@@ -1,6 +1,6 @@
 import { CreateRoomSchema } from "../../schemas/room.schema";
 import { IRoomServices } from "./interface";
-import { Model } from '../../db/libs/connecion'
+import { Model } from '../../db/libs/connection'
 
 export class RoomAdapter implements IRoomServices {
 

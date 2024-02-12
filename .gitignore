@@ -1,3 +1,4 @@
+
 # Created by https://www.toptal.com/developers/gitignore/api/node,dotenv,linux,macos,microsoftoffice
 # Edit at https://www.toptal.com/developers/gitignore?templates=node,dotenv,linux,macos,microsoftoffice
 
@@ -73,6 +74,7 @@ Backup of *.doc*
 # Visio autosave temporary files
 *.~vsd*
 
+
 ### Node ###
 # Logs
 logs
@@ -130,8 +132,10 @@ web_modules/
 # Optional eslint cache
 .eslintcache
 
+
 # Optional stylelint cache
 .stylelintcache
+
 
 # Microbundle cache
 .rpt2_cache/
@@ -147,6 +151,7 @@ web_modules/
 
 # Yarn Integrity file
 .yarn-integrity
+
 
 # dotenv environment variable files
 .env.development.local
@@ -180,6 +185,7 @@ dist
 
 # Docusaurus cache and generated files
 .docusaurus
+
 
 # Serverless directories
 .serverless/

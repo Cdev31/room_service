@@ -2,7 +2,7 @@ import Express, { Response } from 'express'
 import cors from 'cors'
 import { config } from './config/config.env'
 import { routerApp } from './router'
-import { loaderDB } from './db/libs/connecion'
+import { loaderDB } from './db/libs/connection'
 import { handlerConsoleError, handlerErrorSever, handlerMongoError } from './middleware/error.handler'
 import './utils/strategy'
 

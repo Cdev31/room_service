@@ -1,5 +1,5 @@
 import { IUserServices, response } from "./interface";
-import { Model } from '../../db/libs/connecion'
+import { Model } from '../../db/libs/connection'
 
 
 export class UserAdapter implements IUserServices {

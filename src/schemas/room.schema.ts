@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsNumber, IsPositive, IsString, Matches, Max, Min, MinLength, ValidateNested } from "class-validator"
+import { IsNotEmpty, IsNumber, IsPositive, IsString, Max, Min, MinLength, ValidateNested } from "class-validator"
 
 
 class ImageRoom {
@@ -62,3 +62,4 @@ export class CreateRoomSchema {
     @IsNotEmpty()
     images: Array<ImageRoom>
 }
+
